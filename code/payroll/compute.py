@@ -64,6 +64,7 @@ def add_pay_type(payroll: pd.DataFrame) -> pd.DataFrame:
     )
     return out
 
+
 def build_payroll(timesheet: pd.DataFrame, employees: pd.DataFrame) -> pd.DataFrame:
     """The whole pipeline in one call: raw timesheet + raw roster -> payroll table."""
     timesheet_clean = add_hours_worked(timesheet)
