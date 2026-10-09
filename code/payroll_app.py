@@ -9,7 +9,10 @@ from payroll import (
 
 
 st.title("Salt City Coffee — Weekly Payroll")
-st.write("Upload this week's timesheet CSV to calculate payroll and download the payroll provider's file.")
+st.write(
+    "Upload this week's timesheet CSV to calculate payroll and "
+    "download the payroll provider's file."
+)
 
 # The roster is loaded from data/, not uploaded.
 roster = load_employees()

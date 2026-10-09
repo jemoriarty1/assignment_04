@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def parse_hours(value) -> float:
     """Read a weekly-hours string the way a shift lead typed it; return a float."""
     if not isinstance(value, str):
@@ -32,10 +31,8 @@ def parse_hours(value) -> float:
 def clean_currency(value) -> float:
     """Read a dollar amount as HR typed it; return it as a float"""
     if value is None or (not isinstance(value, str) and pd.isna(value)):
-      return 0.0
-    
+        return 0.0
     text = str(value).replace("$", "").replace(",", "").strip()
-
     try:
         return float(text)
     except ValueError:
