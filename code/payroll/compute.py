@@ -21,6 +21,7 @@ OVERTIME_MULTIPLIER = 1.5
 
 
 def calc_gross_pay(hours: float, rate: float) -> float:
+    """Gross pay for one employee-week, rounded to cents."""
     if pd.isna(rate):
         return 0.0
 
@@ -35,6 +36,7 @@ def calc_gross_pay(hours: float, rate: float) -> float:
 
 
 def classify_pay(hours: float, rate: float) -> str:
+    """One word the office manager can filter on: what kind of pay row is this?"""
     if pd.isna(rate):
         return "unmatched"
     elif hours > OVERTIME_THRESHOLD:
@@ -44,6 +46,7 @@ def classify_pay(hours: float, rate: float) -> str:
 
 
 def add_gross_pay(payroll: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy with one new column, `gross_pay`: `calc_gross_pay` for every row."""
     out = payroll.copy()
     out["gross_pay"] = out.apply(
         lambda row: calc_gross_pay(row["hours_worked"], row["hourly_rate_usd"]),
@@ -53,6 +56,7 @@ def add_gross_pay(payroll: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_pay_type(payroll: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy with one new column, `pay_type`: `classify_pay` for every row."""
     out = payroll.copy()
     out["pay_type"] = out.apply(
         lambda row: classify_pay(row["hours_worked"], row["hourly_rate_usd"]),
@@ -61,6 +65,7 @@ def add_pay_type(payroll: pd.DataFrame) -> pd.DataFrame:
     return out
 
 def build_payroll(timesheet: pd.DataFrame, employees: pd.DataFrame) -> pd.DataFrame:
+    """The whole pipeline in one call: raw timesheet + raw roster -> payroll table."""
     timesheet_clean = add_hours_worked(timesheet)
     employees_clean = add_hourly_rate(employees)
 
@@ -72,6 +77,7 @@ def build_payroll(timesheet: pd.DataFrame, employees: pd.DataFrame) -> pd.DataFr
 
 
 def payroll_export(payroll: pd.DataFrame) -> pd.DataFrame:
+    """The file the online payroll provider imports — a NEW frame, not a renamed one."""
     export = payroll.loc[payroll["pay_type"] != "unmatched", [
         "payroll_date",
         "employee_id",

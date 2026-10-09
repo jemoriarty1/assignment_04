@@ -2,6 +2,7 @@ import pandas as pd
 
 
 def parse_hours(value) -> float:
+    """Read a weekly-hours string the way a shift lead typed it; return a float."""
     if not isinstance(value, str):
         if value is None or pd.isna(value):
             return 0.0
@@ -29,6 +30,7 @@ def parse_hours(value) -> float:
     return hours
 
 def clean_currency(value) -> float:
+    """Read a dollar amount as HR typed it; return it as a float"""
     if value is None or (not isinstance(value, str) and pd.isna(value)):
       return 0.0
     
@@ -40,11 +42,13 @@ def clean_currency(value) -> float:
         return 0.0
 
 def add_hours_worked(timesheet: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy of the timesheet with one new column, `hours_worked` (float)."""
     out = timesheet.copy()
     out["hours_worked"] = out["hours"].apply(parse_hours)
     return out
 
 def add_hourly_rate(employees: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy of the roster with one new column, `hourly_rate_usd` (float)."""
     out = employees.copy()
     out["hourly_rate_usd"] = out["hourly_rate"].apply(clean_currency)
     return out
