@@ -1,6 +1,8 @@
-Write your reflection here.
-
-See reflection.md for what makes a good reflection — be specific, use the
-terminology from this assignment (lineage, grain, element function, Series.apply,
-row apply / axis=1, left merge, NaN, coerce, copy-add-return, boolean index,
-export), and make it actionable.
+During this assignment I practiced what I learned in class on how to combine Python functions 
+into a complete payroll pipeline and use Streamlit to create a user-friendly interface. I 
+learned how pandas DataFrames merging filtering and.sum() work together to calculate payroll 
+totals and identify employee IDs. I struggled with the lint errors that came up throughout 
+completing the assignment. I had to go multiple times to fix errors like lines being under 
+88 characters and no new line at the end of files. This helped make it clear to me that 
+breaking long function calls and strings, across lines makes code easier to read. I plan to 
+practice writing docstrings and debugging errors so I can write code with less help.
